@@ -39,23 +39,24 @@
             必須
         = f.text_area :details, class: 'Product__explanation__text', placeholder: '商品の説明（必須 1000文字以内）'
         //文字数カウントはJSで行います。
-  
+
       .Product__detail
         .Product__detail__title 商品の詳細
         .Product__detail__category
-          %p.Product__detail__category__title
-            カテゴリー 
-            %span
-              必須
-          .Product__detail__category__select
-            = select_tag '', options_for_select(["選択してください", "レディース", "メンズ"]), {class: 'Product__detail__category__select__form'}
-          
+        = f.label 'カテゴリー', class: 'Product__detail__category__label'
+        %span.Product__detail__category__require
+          必須
+        .Product__detail__category__select
+          .Product__detail__category__select__box
+          = f.select :category_id, @category_parent_array, {}, {class: 'Product__detail__category__select__box--form', id: 'parent_category'}
+          -# %i.fas.fa-chevron-down.Product__detail__category__select__box--arrow-down
+
         .Product__detail__brand
           %p.Product__detail__brand__title
             ブランド
             %span
               任意
-          = f.text_field :category, class: 'Product__detail__brand__text', placeholder: '例）シャネル'
+          = f.text_field :brand, class: 'Product__detail__brand__text', placeholder: '例）シャネル'
         
         .Product__detail__status
           %p.Product__detail__status__title

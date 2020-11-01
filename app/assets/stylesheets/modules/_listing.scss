@@ -92,17 +92,23 @@
         font-weight: 600;
       }
       &__category{
-        &__title{
+        &__label{
           font-size: 15px;
-          span{
-            @include span;
-          }
+        }
+        &__require{
+          background: red;
+          padding: 2px 2px;
+          color: #fff;
+          font-size: 13px;
         }
         &__select{
           margin-top: 15px;
-          &__form{
-            width: 100%;
-            height: 50px;
+          &__box{
+            margin-top: 15px;
+            &--form{
+              width: 100%;
+              height: 50px;
+            }
           }
         }
       }

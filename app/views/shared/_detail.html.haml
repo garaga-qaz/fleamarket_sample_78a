@@ -33,10 +33,16 @@
           .Main__show__contRight__topCont__itemBox__body
             %ul
               %li
-                = image_tag src="https://s3-ap-northeast-1.amazonaws.com/mercarimaster/uploads/captured_image/content/18/beef.JPG"
+                #main-image
+                  = image_tag @product.images[0].url.to_s
+                  -if @product.orders.present? 
+                    .items-box_photo__sold
+                      .items-box_photo__sold__inner
+                        SOLD
                 %ul
-                  %li
-                    = image_tag "https://s3-ap-northeast-1.amazonaws.com/mercarimaster/uploads/captured_image/content/18/beef.JPG", size: "75x75"
+                  -  @product.images.each do |image|
+                    %li{class:"choice", id:"image-list"}
+                      = image_tag image.url.to_s
           .Main__show__contRight__topCont__itemBox__price
             %span
               = "¥" + @product.price.to_s(:delimited)
@@ -44,7 +50,18 @@
               %span
                 （税込）
               %span
-                =  @product.fee_side
+                送料込み
+
+          - if user_signed_in? 
+            - unless current_user.id == @product.user_id
+              = link_to edit_product_path(@product.id), method: :get do
+                .Main__show__contRight__topCont__itemBox__buy
+                  購入画面に進む
+          - else
+            = link_to new_user_session_path do
+              .Main__show__contRight__topCont__itemBox__buy
+                購入画面に進む
+
           .Main__show__contRight__topCont__itemBox__detail
             =  @product.details
           .Main__show__contRight__topCont__itemBox__table
@@ -56,17 +73,11 @@
                   %td
                     =  @product.user.nickname
                 %tr
-                  %th
-                    カテゴリー
+                  %th カテゴリー
                   %td
-                    = link_to "#" do
-                      レディース
-                    %br/
-                    = link_to "#" do
-                      トップス
-                    %br/
-                    = link_to "#" do
-                      Tシャツ/カットソー(半袖/袖なし)
+                    = link_to "#{@category_parent.name}","#"
+                    %br= link_to "#{@category_child.name}","#"
+                    = link_to "#{@category_grandchild.name}","#"
                 %tr
                   %th
                     ブランド
@@ -81,23 +92,23 @@
                   %th
                     商品の状態
                   %td
-                    =  @product.condition
+                    =  Condition.find(@product.condition_id).name
                 %tr
                   %th
                     配送料の負担
                   %td
-                    =  @product.fee_side #（出品者負担）
+                    =  @product.fee_side 
                 %tr
                   %th
                     発送元の地域
                   %td
                     = link_to "#" do
-                      =  @product.prefecture
+                      =  Prefecture.find(@product.prefecture_id).name
                 %tr
                   %th
                     発送日の目安
                   %td
-                    =  @product.days_id
+                    =  Day.find(@product.days_id).name
           .Main__show__contRight__topCont__itemBox__aria
             %ul
               %li{class:"optionalBtn likeBtn",id:"likeBtn"}

@@ -1,0 +1,31 @@
+.card_add{
+  text-align: center;
+  .title{
+  font-size: 30px;
+  text-align: center;
+  }
+  .card-number{
+    font-size: 20px;
+  }
+  .cardnumber{
+    width: 200px;
+  }
+  .must_check{
+    color: red;
+  }
+  .securitycode__cardsecurity__form{
+    width: 200px;
+  }
+  .add{
+    margin-top: 10px;
+  }
+  .add__btn{
+    background-color: #3CCACE;
+    color: #fff;
+    font-size: 20px;
+    margin: 0 0 0 8px;
+    padding: 2px 4px;
+    border-radius: 2px;
+    vertical-align:top;
+  }
+}

@@ -15,8 +15,10 @@ class User < ApplicationRecord
   validates :recipient_first_name, format: { with: /\A([ぁ-んァ-ン一-龥]|ー)+\z/}
   validates :recipient_family_furigana, format: { with: /\A[ぁ-んー－]+\z/}
   validates :recipient_first_furigana, format: { with: /\A[ぁ-んー－]+\z/}
+
   validates :zip_cord, format: { with: /\A\d{7}\z/}
   validates :prefecture, presence: true
   validates :city, presence: true
   validates :address, presence: true
+  has_one :card, dependent: :destroy
 end

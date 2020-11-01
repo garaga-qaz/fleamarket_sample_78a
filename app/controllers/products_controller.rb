@@ -1,23 +1,42 @@
 class ProductsController < ApplicationController
-  before_action :move_to_index, except: [:index, :show]
+  before_action :move_to_index, except: [:index, :show, :search]
   before_action :set_parents
 
   def index
-    @products = Product.last(5)
+    @products = Product.order("created_at DESC").first(5)
   end
 
   def new
     @product = Product.new
     @product.images.new
-    @parents = Category.all.order("id ASC").limit(13)
+    
+    @category_parent_array = ["選択してください"]
+    Category.where(ancestry: nil).each do |parent|
+      @category_parent_array << parent.name
+    end
+  end
+
+  def get_category_children
+    @category_children = Category.find_by(name: "#{params[:parent_name]}", ancestry: nil).children
+  end
+
+  def get_category_grandchildren
+    @category_grandchildren = Category.find("#{params[:child_id]}").children
+
   end
 
   def create
     @product = Product.new(product_params)
+
+    @category_parent_array = ["選択してください"]
+    Category.where(ancestry: nil).each do |parent|
+      @category_parent_array << parent.name
+    end
     if @product.save
       redirect_to root_path
     else
-      render :new
+        @product.images.new
+        render :new
     end
   end
 
@@ -33,10 +52,21 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
+
+    @category_id = @product.category_id
+    @category_parent = Category.find(@category_id).parent.parent
+    @category_child = Category.find(@category_id).parent
+    @category_grandchild = Category.find(@category_id)
+  end
+
+  def search
+    @products = Product.search(params[:keyword]).order("created_at DESC")
   end
 
   def edit
+    @product = Product.find(params[:id])
   end
+
 
   private
   
@@ -47,9 +77,9 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:name, :details, :price, :prefecture_id,:condition_id, :fee_side,:days_id, images_attributes: [:url]).merge(user_id: current_user.id)
+    params.require(:product).permit(:prefecture_id, :days_id, :condition_id, :category_id, :name, :details, :price, :condition, :fee_side, :origin, :days, images_attributes: [:url]).merge(user_id: current_user.id)
   end
-
+  
   def set_product
     @product = Product.find(params[:id])
   end

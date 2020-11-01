@@ -85,13 +85,13 @@
           お支払いは、クレジットカードだけでなく、ポイントや売上金など多彩な方法があります。
 
   .Product
-    .Product__theme 全ての商品
+    .Product__theme 新規投稿商品
     .Product__lists
       
       - @products.each do |product|
         = link_to product_path(product.id), method: :get do
           .Product__lists__set
-            =image_tag(src= "beef.jpeg", class: "Product__lists__set__image")
+            =image_tag product.images[0].url.to_s ,{class: "Product__lists__set__image"}
             .Product__lists__set__content
               .Product__lists__set__content__information
                 .Product__lists__set__content__information__name  
@@ -105,6 +105,10 @@
                   = icon("fa", "star") 
                 .Product__lists__set__content__star__Evaluation 
                   1
+            -if product.orders.present? 
+              .items-box_photo__sold
+                .items-box_photo__sold__inner
+                  SOLD
   
   .Download
     .Download__message

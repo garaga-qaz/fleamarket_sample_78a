@@ -3,7 +3,7 @@ $(document).ready(function () {
   function childBuild(children) {
     let child_category = `
                         <li class="category_child">
-                          <a href="/categories/${children.id}"><input class="child_btn" type="button" value="${children.name}" name= "${children.id}">
+                          <a href="#"><input class="child_btn" type="button" value="${children.name}" name= "${children.id}">
                           </a>
                         </li>
                         `
@@ -13,7 +13,7 @@ $(document).ready(function () {
   function gcBuild(children) {
     let gc_category = `
                         <li class="category_grandchild">
-                          <a href="/categories/${children.id}"><input class="gc_btn" type="button" value="${children.name}" name= "${children.id}">
+                          <a href="#"><input class="gc_btn" type="button" value="${children.name}" name= "${children.id}">
                           </a>
                         </li>
                         `
@@ -181,3 +181,5 @@ $(document).ready(function () {
     }
   }, '.header__headerInner__nav__listsLeft__item');
 });
+
+

@@ -62,7 +62,7 @@
             .list__content__right
               = icon("fas", "chevron-right")
         %li
-          = link_to "#", class:"list__content" do
+          = link_to new_card_path, class:"list__content" do
             .list__content__left
               支払い方法
             .list__content__right
@@ -154,9 +154,15 @@
             = link_to "#", class:"content__list__catalog__link" do
               一覧を見る
 
-= link_to '#' do
-  .Exhibition-btn
-    .Exhibition-btn__name 出品する
-    =image_tag(src= "icon_camera.png", class: "Exhibition-btn__image")
+- if user_signed_in?
+  = link_to new_product_path do
+    .Exhibition-btn
+      .Exhibition-btn__name 出品する
+      =image_tag(src= "icon_camera.png", class: "Exhibition-btn__image")
+- else
+  = link_to new_user_session_path do
+    .Exhibition-btn
+      .Exhibition-btn__name 出品する
+      =image_tag(src= "icon_camera.png", class: "Exhibition-btn__image")
 
 =render 'shared/footer'

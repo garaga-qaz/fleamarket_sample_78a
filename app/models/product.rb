@@ -1,7 +1,8 @@
 class Product < ApplicationRecord
   belongs_to :user, foreign_key: 'user_id'
-  #belongs_to :category
-  	
+
+  belongs_to :category, foreign_key: 'category_id'
+
   has_many :images, dependent: :destroy
   accepts_nested_attributes_for :images, allow_destroy: true
 
@@ -18,5 +19,14 @@ class Product < ApplicationRecord
   belongs_to_active_hash :prefecture
   belongs_to_active_hash :condition
   belongs_to_active_hash :day
-  has_many :orders
+  has_many :orders, dependent: :destroy
+
+  def self.search(search)
+    if search != ""
+      Product.where('name LIKE(?) or details LIKE(?)', "%#{search}", "%#{search}%")
+    else
+      Product.all
+    end
+  end
+  
 end

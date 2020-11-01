@@ -5,27 +5,23 @@
         = link_to "/" do
           = image_tag src="logo.png"
       .Top__innerTop__main__seach
-        %form.Top__innerTop__main__seach__box{action:"#", acceptcharset:"UTF-8", method:"get"}
-          %input{name:"utf8", type:"hidden" ,value:"✓"}
-          %input.Form__inputText{"placeholder": "キーワードから探す", "type": "text"}
-          %button.Top__innerTop__main__seach__box__botan{type:"submit"}
-            .Top__innerTop__main__seach__box__botan__icon
-              = image_tag src="http://furima.tokyo/assets/icon-search-60a83ada85216fe00789cd16065281694d9a08948275fef83683fadcf131d84d.svg" , class: "Contents"
-          %input{type:"hidden" , name:"authenticity_token" ,value:"z9MMmqcTltZ6rohkw4uyJvd7IBqIFXhoPJYuLz8YPYc9GLAwsDw0cGPiGKUI04onzh/EkA5mnongEZ4YunihSA=="}
-      %ul.result
+        = form_with url: search_products_path, local: true, class: "Top__innerTop__main__seach__box", method: :get do |f|
+          = f.text_field :keyword, placeholder: "キーワードから探す", class: "Top__innerTop__main__seach__box__text"
+          = icon('fas', 'search', class: "Top__innerTop__main__seach__box__image")
+          = f.submit "", class: "Top__innerTop__main__seach__box__btn"
     .Mokuji
       %ul.Mokuji__themeLeft
         %li.Mokuji__themeLeft__item.Mokuji__themeLeft__item--one
-          = link_to categories_path, id: 'categoBtn' do
+          = link_to "#", id: 'categoBtn' do
             カテゴリー
           #tree_menu
             %ul.categoryTree
               - @parents.each do |parent|
                 %li.category_parent
-                  = link_to category_path(parent) do
+                  = link_to "#" do
                     %input{type: "button", value: "#{parent.name}", name: "#{parent.id}", class: "parent_btn"}
               %li.category_parent
-                = link_to categories_path do
+                = link_to "#" do
                   %input{type: "button", value: "全てのカテゴリー", id: "all_btn"}
             %ul.categoryTree-child
             %ul.categoryTree-grandchild

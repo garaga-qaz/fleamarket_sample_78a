@@ -158,14 +158,18 @@
             margin-bottom: 24px;
           }
           &__botan{
-            background-color: #ccc;
-            color: #888;
-            cursor: default;
+            background-color: #3CCACE;
+            color: white;
+            cursor: pointer;
             width: 100%;
             font-size: 17px;
             min-height: 48px;
-            padding: 0 24px;
-          }      
+            margin: 0 auto;
+            border: 2px solid indianred;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }     
         }
       }
     }

@@ -5,6 +5,9 @@
 * {
   box-sizing: border-box;
 }
+a {
+  text-decoration: none;
+}
 // ヘッダー部分
 .Top{
   padding: 0 60px;
@@ -39,30 +42,33 @@
           width: 100%;
           display: flex;
           margin-bottom: 5px;
-          &__botan{
-            width: 36px;
+          position: relative;
+          &__text{
+            height: 36px;
+            width: 100%;
+            padding-left: 5px;
+          }
+          &__btn{
+            position: absolute;
+            vertical-align: bottom;
             border: 0;
+            right: 0;
+            height: 36px;
+            width: 36px;
             cursor: pointer;
+            background-color: transparent;
+          }
+          &__image{
+            color: #fff;
+            position: absolute;
+            right: 0;
+            padding: 8px 8px;
+            font-size: 20px;
+            height: 36px;
+            width: 36px;
             background-color: #3CCACE;
-            padding: 8px;
-            .Contents{
-              width: 100%;
-              vertical-align: bottom;
-            }
           }
         }
-        input{
-          width: calc(100% - 26px);
-          height: 36px;
-          padding: 0 0 0 5px
-        }
-      }
-      .result{
-        display: flex;
-        position: absolute;
-        right: 0;
-        top: 36px;
-        z-index: 2;
       }
     }
     .Mokuji{
@@ -307,21 +313,41 @@ img{
               width: 560px;
               align-items: center;
               margin: 0 auto;
+              .items-box_photo__sold{
+                width: 0;
+                height: 0;
+                border-top: 60px solid #ea352d ;
+                border-right: 60px solid transparent;
+                border-bottom: 60px solid transparent;
+                border-left: 60px solid #ea352d ;
+                z-index:100;
+                position: relative;
+                top: -346px;
+                margin-bottom: -120px;
+                &__inner{
+                  transform: rotate(-45deg);
+                  font-size: 28px;
+                  margin:-35px 0px 0px -55px;
+                  color: #fff;
+                  font-weight: 600;
+                }
+              }
               img{
                 object-fit: cover;
                 height: 346px;
+                width: 560px;
               }
               ul{
                 display: flex;
                 justify-content: center;
                 margin-top: 10px;
-                // width: 100%;
-                li{
-                  width: 25%;
-                  margin: 0 10px 0 0;
+                li {
+                  width: 104px;
+                  margin: 0 5px;
                   img{
                     object-fit: cover;
                     height: 87px;
+                    width: 102px;
                   }
                 }
               }
@@ -345,7 +371,19 @@ img{
             }
           }
         }
+        &__buy{
+          background-color: #3CCACE;
+          color: #fff;
+          height: 60px;
+          margin-top: 16px;
+          padding: auto;
+          font-weight: 600;
+          font-size: 24px;
+          line-height: 60px;
+          text-align: center;
+        }
         &__detail{
+          padding-top: 32px;
           line-height: 1.5;
           font-size: 18px;
           margin-bottom: 30px;
@@ -413,6 +451,35 @@ img{
               }
             }
           }
+        }
+      }
+      &__topCont__action{
+        display: flex;
+        text-align: center;
+        &__edit{
+          background-color: #3CCACE;
+          color: #fff;
+          height: 60px;
+          margin-top: 16px;
+          margin-bottom: 8px;
+          width: 700px;
+          padding: auto;
+          font-size: 16px;
+          line-height: 60px;
+          text-align: center;
+          border-radius: 8px;
+        }
+        &__delete{
+          background-color: #cccccc;
+          color: #fff;
+          height: 60px;
+          margin-top: 8px;
+          width: 700px;
+          padding: auto;
+          font-size: 16px;
+          line-height: 60px;
+          text-align: center;
+          border-radius: 8px;
         }
       }
       &__topCont__comeBox{
