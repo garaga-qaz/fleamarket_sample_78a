@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_092450) do
+ActiveRecord::Schema.define(version: 2020_10_31_165523) do
 
   create_table "cards", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_092450) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_cards_on_user_id"
   end
+
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -75,7 +76,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_092450) do
     t.string "family_furigana", null: false
     t.integer "birthday", null: false
     t.integer "zip_cord", null: false
-    t.string "prefecture", null: false
+    t.integer "prefecture", null: false
     t.string "city", null: false
     t.string "address", null: false
     t.string "mansion", null: false

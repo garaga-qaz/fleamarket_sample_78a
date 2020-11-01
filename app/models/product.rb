@@ -11,6 +11,7 @@ class Product < ApplicationRecord
   validates :details, presence: true, length: { maximum: 1000 } 
   validates :fee_side, presence: true
   validates :price, presence: true
+  validates :price, numericality: {greater_than_or_equal_to: 300,less_than: 9999999}
   validates_associated :images
   validates :prefecture_id, presence: true
   validates :condition_id, presence: true

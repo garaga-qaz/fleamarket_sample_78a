@@ -68,6 +68,58 @@ class ProductsController < ApplicationController
   end
 
 
+  def compilation
+    @product = Product.find(params[:id])
+    @images = Image.where(product_id: params[:id])
+    @product.images.new
+
+    grandchild_category = @product.category
+    child_category = grandchild_category.parent
+
+    @category_parent_array = []
+    Category.where(ancestry: nil).each do |parent|
+      @category_parent_array << parent.name
+    end
+
+    @category_children_array = []
+    Category.where(ancestry: child_category.ancestry).each do |children|
+      @category_children_array << children
+    end
+
+    @category_grandchildren_array = []
+    Category.where(ancestry: grandchild_category.ancestry).each do |grandchildren|
+      @category_grandchildren_array << grandchildren
+    end
+  end
+
+  def update
+    @product = Product.find(params[:id])
+    @images = Image.where(product_id: params[:id])
+    
+    grandchild_category = @product.category
+    child_category = grandchild_category.parent
+
+    @category_parent_array = []
+    Category.where(ancestry: nil).each do |parent|
+      @category_parent_array << parent.name
+    end
+
+    @category_children_array = []
+    Category.where(ancestry: child_category.ancestry).each do |children|
+      @category_children_array << children
+    end
+
+    @category_grandchildren_array = []
+    Category.where(ancestry: grandchild_category.ancestry).each do |grandchildren|
+      @category_grandchildren_array << grandchildren
+    end
+    if @product.update_attributes(product_params)
+      redirect_to "/"
+    else
+      render action: :compilation
+    end
+  end
+
   private
   
   def move_to_index
@@ -77,7 +129,7 @@ class ProductsController < ApplicationController
   end
 
   def product_params
-    params.require(:product).permit(:prefecture_id, :days_id, :condition_id, :category_id, :name, :details, :price, :condition, :fee_side, :origin, :days, images_attributes: [:url]).merge(user_id: current_user.id)
+    params.require(:product).permit(:prefecture_id, :days_id, :condition_id, :category_id, :name, :details, :price, :condition, :fee_side, :origin, :days, images_attributes: [:url, :_destroy, :id]).merge(user_id: current_user.id)
   end
   
   def set_product

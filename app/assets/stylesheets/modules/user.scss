@@ -63,6 +63,13 @@
       padding: 10px;
       letter-spacing: 1px;
     }
+    select {
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      width: 100%;
+      padding: 10px;
+      letter-spacing: 1px;
+    }
     .field_with_errors {
       position: relative;
 

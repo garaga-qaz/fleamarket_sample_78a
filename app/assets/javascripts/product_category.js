@@ -11,7 +11,6 @@ $(function(){
                             <option value="選択してください" data-category="選択してください">選択してください</option>
                             ${insertHTML}
                           <select>
-                          <i class='Product__detail__category__select__box--arrow-down'></i>
                         </div>
                       </div>`;
     $('.Product__detail__category__select').append(childSelectHtml);
@@ -24,14 +23,13 @@ $(function(){
                                   <option value="選択してください" data-category="選択してください">選択してください</option>
                                   ${insertHTML}
                                 <select>
-                                <i class='Product__detail__category__select__box--arrow-down'></i>
                               </div>
                             </div>`;
     $('.Product__detail__category__select').append(grandchildSelectHtml);
   }
   $('#parent_category').on('change', function(){
     var parentCategory = document.getElementById('parent_category').value;
-    if (parentCategory != "選択してください"){
+    if (parentCategory != ""){
       $.ajax({
         url: '/products/get_category_children',
         type: 'GET',
@@ -57,7 +55,7 @@ $(function(){
   });
   $('.Product__detail__category__select').on('change', '#child_category', function(){
     var childId = $('#child_category option:selected').data('category');
-    if (childId != "選択してください"){
+    if (childId != ""){
       $.ajax({
         url: '/products/get_category_grandchildren',
         type: 'GET',
@@ -65,14 +63,12 @@ $(function(){
         dataType: 'json'
       })
       .done(function(grandchildren){
-        console.log("1")
         if (grandchildren.length != 0) {
           $('#grandchildren_wrapper').remove();
           var insertHTML = '';
           grandchildren.forEach(function(grandchild){
             insertHTML += appendOption(grandchild);
           });
-          console.log(insertHTML)
           appendGrandchidrenBox(insertHTML);
         }
       })

@@ -120,7 +120,7 @@
             %span.FormField__label__require 必須
             %br/
           .FormField__input--normal
-            = f.text_field :prefecture, placeholder: "例)〇〇県"
+            = f.select :prefecture, User.prefectures.keys, include_blank: "選択してください"
         .FormField
           .FormField__label--normal
             = f.label :city, "市区町村"

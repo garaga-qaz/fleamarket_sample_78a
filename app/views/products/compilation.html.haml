@@ -11,19 +11,25 @@
           %span
             必須
         #previews
+          - if @images.present?
+            - @images.each_with_index do |img,n|
+              = image_tag ("#{img.url}"),class: "image-show",data:{index: n}
           #image-select-btn
             image select
         #delete_button_field
+          - if @images.present?
+            - @images.each_with_index do |img,n|
+              .js-remove{data: {index: n}} 削除
         %p.Product__image__detail 最大5枚までアップロードできます
         #image-file-fileds
-          = f.fields_for :images, @product.images.build do |i|
+          -# = f.fields_for :images, @product.images.build do |i|
+          = f.fields_for :images do |i|
             = i.file_field :url, class: 'Product__image__submit',data:{index: i.index}
-            - if @product.persisted?
-              = image.check_box :_destroy, data:{ index: image.index }, class: 'hidden-destroy'
-          - if @product.persisted?
-            .js-file_group{"data-index" => "#{@product.images.count}"}
-            = file_field_tag :url, name: "product[images_attributes][#{@product.images.count}][url]", class: 'js-file'
-            .js-remove 削除
+            - if i.object.persisted?
+              = i.check_box :_destroy, data:{ index: i.index }, class: 'hidden-destroy'
+          -# - if @product.persisted?
+          -#   .js-file_group{"data-index" => "#{@product.images.count}"}
+          -#   = file_field_tag :url, name: "product[images_attributes][#{@product.images.count}][url]", class: 'js-file'
             
       .Product__name
         %p.Product__name__title 
@@ -48,9 +54,11 @@
           必須
         .Product__detail__category__select
           .Product__detail__category__select__box
-          = f.select :category_id, @category_parent_array, {}, {class: 'Product__detail__category__select__box--form', id: 'parent_category'}
-          -# %i.fas.fa-chevron-down.Product__detail__category__select__box--arrow-down
-
+            = f.select :parent_name, @category_parent_array, {selected:@product.category.parent.parent.name}, { class: 'Product__detail__category__select__box--form', id: 'parent_category'}
+          .Product__detail__category__select__box#children_wrapper
+            = f.select :child_id, options_for_select(@category_children_array.map{|b| [b.name, b.id, {data:{category: b.id}}]}, {prompt: "指定なし", selected: @product.category.parent.id}),{}, {class: 'Product__detail__category__select__box--form', id: 'child_category'}
+          .Product__detail__category__select__box#grandchildren_wrapper
+            = f.select :category_id, options_for_select(@category_grandchildren_array.map{|b| [b.name, b.id, {data:{category: b.id}}]}, {prompt: "指定なし", selected: @product.category.id}),{}, {class: 'Product__detail__category__select__box--form', id: 'grandchild_category'}
         .Product__detail__brand
           %p.Product__detail__brand__title
             ブランド
