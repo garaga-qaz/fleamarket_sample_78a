@@ -74,7 +74,7 @@
             .list__content__right
               = icon("fas", "chevron-right")
         %li
-          = link_to "#", class:"list__content" do
+          = link_to destroy_user_session_path, method: :delete, class:"list__content" do
             .list__content__left
               ログアウト
             .list__content__right
@@ -87,7 +87,7 @@
           .content-field__top__user__link__icon
             =image_tag(src= "beef.jpeg", class: "content-field__top__user__link__icon__image")
           %h2.content-field__top__user__link__name
-            田中
+            = current_user.nickname
           .content-field__top__user__link__number
             .content-field__top__user__link__number__left
               評価
