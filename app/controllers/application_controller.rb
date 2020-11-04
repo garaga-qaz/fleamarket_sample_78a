@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :basic_auth, if: :production?
 
   def after_sign_out_path_for(resource)
-    sign_out_path
+    root_path
   end
   
   protected
