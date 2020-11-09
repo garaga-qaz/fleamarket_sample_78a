@@ -51,16 +51,16 @@
                 （税込）
               %span
                 送料込み
-
-          - if user_signed_in? 
-            - unless current_user.id == @product.user_id
-              = link_to edit_product_path(@product.id), method: :get do
+          -unless @product.orders.present? 
+            - if user_signed_in?
+              - unless current_user.id == @product.user_id
+                = link_to edit_product_path(@product.id), method: :get do
+                  .Main__show__contRight__topCont__itemBox__buy
+                    購入画面に進む
+            - else
+              = link_to new_user_session_path do
                 .Main__show__contRight__topCont__itemBox__buy
                   購入画面に進む
-          - else
-            = link_to new_user_session_path do
-              .Main__show__contRight__topCont__itemBox__buy
-                購入画面に進む
 
           .Main__show__contRight__topCont__itemBox__detail
             =  @product.details
